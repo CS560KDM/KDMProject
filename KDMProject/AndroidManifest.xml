@@ -55,27 +55,6 @@
         <activity android:name="edu.umkc.project.DeviceServicesActivity" />
         <!-- Mainactivity for fluffy cow -->
         <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
-        <activity android:name="com.quchen.flappycow.MainActivity" />
-        <activity
-            android:name="com.quchen.flappycow.Game"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="com.quchen.flappycow.Game" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="edu.umkc.project.About"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="com.quchen.flappycow.About" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         
          <meta-data android:name="com.google.android.gms.version"
 	           android:value="@integer/google_play_services_version"/>
@@ -89,7 +68,7 @@
         <service
             android:name="edu.umkc.project.BleService"
             android:enabled="true" /> -->
-<service 
+<service
     android:name="com.quchen.flappycow.ConnectionService"
     >
     </service>

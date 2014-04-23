@@ -1,13 +1,13 @@
 package edu.umkc.project;
 
-import com.quchen.flappycow.MainActivity;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -46,9 +46,12 @@ public class GameSelectionActivity extends Activity {
 		fluffyCow.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent reportPage = new Intent(GameSelectionActivity.this,MainActivity.class);
-				
-				startActivity(reportPage);
+				//Intent reportPage = new Intent("com.quchen.flappycow.MainActivity");
+				Intent i = new Intent(Intent.ACTION_MAIN);
+			    PackageManager managerclock = getPackageManager();
+			    i = managerclock.getLaunchIntentForPackage("com.quchen.flappycow");
+			    i.addCategory(Intent.CATEGORY_LAUNCHER);
+				startActivity(i);
 			}
 		});
 		registerReceiver(receiver, new IntentFilter("myproject"));
