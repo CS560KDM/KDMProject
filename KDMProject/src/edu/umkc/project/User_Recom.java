@@ -74,6 +74,8 @@ public class User_Recom extends Activity {
 
 }
 
+
+
 //food to eat
 //food not to eat
 //activity to do

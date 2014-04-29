@@ -1,12 +1,20 @@
 package edu.umkc.project;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class GameSelectionActivity extends Activity {
+String userName ="tempUser";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +35,12 @@ public class GameSelectionActivity extends Activity {
 			
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(),ReportActivity.class);
+				userName = (String)getIntent().getCharSequenceExtra("username");
 				i.putExtra("username", getIntent().getCharSequenceExtra("username"));
 				startActivity(i);
 			}
 		});
+		
 	}
 
 	@Override
@@ -47,6 +58,10 @@ public class GameSelectionActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				//Intent reportPage = new Intent("com.quchen.flappycow.MainActivity");
+				startService(new Intent(GameSelectionActivity.this,ConnectionService.class));
+				String url ="http://10.0.2.2:8080/RESTfulWS/rest/upload/user?username="+userName;
+				new SaveUserName().execute(url);
+				//Log.i("hello", "here");
 				Intent i = new Intent(Intent.ACTION_MAIN);
 			    PackageManager managerclock = getPackageManager();
 			    i = managerclock.getLaunchIntentForPackage("com.quchen.flappycow");
@@ -54,7 +69,7 @@ public class GameSelectionActivity extends Activity {
 				startActivity(i);
 			}
 		});
-		registerReceiver(receiver, new IntentFilter("myproject"));
+		//registerReceiver(receiver, new IntentFilter("myproject"));
 	}
 	public static Integer numberOfStomps;
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -69,7 +84,28 @@ public class GameSelectionActivity extends Activity {
 			}
 		}
 
-		
 	};
 
+}
+class SaveUserName extends AsyncTask<String, String, String>{
+
+	@Override
+	protected String doInBackground(String... params) {
+		 String urlString=params[0]; // URL to call
+		 String resultToDisplay = "";
+		 InputStream in = null;
+		 try {
+		 URL url = new URL(urlString);
+		 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		 BufferedReader br = new BufferedReader(new InputStreamReader(
+					(urlConnection.getInputStream())));
+		 while((resultToDisplay=br.readLine())!=null){
+			 Log.i("url response", resultToDisplay);	 
+		 }
+		 } catch (Exception e ) {
+		 return e.getMessage();
+		 }
+		 return resultToDisplay; 
+	}
+	
 }
