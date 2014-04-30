@@ -24,7 +24,7 @@ public class User_Report extends Activity {
 		TextView bmr = (TextView)findViewById(R.id.bmrValue);
 		TextView stomp = (TextView)findViewById(R.id.stompValue);
 		TextView burnt = (TextView) findViewById(R.id.calburnValue);
-		ImageView result = (ImageView)findViewById(R.id.result);
+		TextView result = (TextView)findViewById(R.id.result);
 		loginDataBaseAdapter=new LoginDataBaseAdapter(this);
 	    loginDataBaseAdapter=loginDataBaseAdapter.open();
 	    
@@ -35,7 +35,10 @@ public class User_Report extends Activity {
 		String weightValue=loginDataBaseAdapter.getSinlgeEntry(username,"WEIGHT");
 		String calorieValue=loginDataBaseAdapter.getSinlgeEntry(username,"CALORIES");
 		String BMR = loginDataBaseAdapter.getSinlgeEntry(username,"BMR");
-		String Stomp = loginDataBaseAdapter.getSinlgeEntry(username,"STOMP");
+		String Stomp = "50";//loginDataBaseAdapter.getSinlgeEntry(username,"STOMP");
+		
+		
+		
 		user.setText(username);
 		age.setText(ageValue);
 		height.setText(heightValue);
@@ -56,27 +59,27 @@ If you are extra active (very hard exercise/sports & physical job or 2x training
 	if ( stomp_count < 20){
 		cal_burnt = (float) (bmrValue * 1.2);
 		burnt.setText(cal_burnt.toString());
-		result.setImageResource(R.drawable.vlittle);
+		result.setText("Very little Workout");
 	}
 	else if ( (stomp_count >= 20) && (stomp_count < 50)){
 		cal_burnt = (float) (bmrValue * 1.375);
 		burnt.setText(cal_burnt.toString());
-		result.setImageResource(R.drawable.little);
+		result.setText("little workout");
 	}
 	else if ( (stomp_count >= 50) && (stomp_count < 90)){
 		cal_burnt = (float) (bmrValue * 1.55);
 		burnt.setText(cal_burnt.toString());
-		result.setImageResource(R.drawable.avg);
+		result.setText("Average Workout");
 	}
 	else if ( (stomp_count >= 90) && (stomp_count < 150)){
 		cal_burnt = (float) (bmrValue * 1.725);
 		burnt.setText(cal_burnt.toString());
-		result.setImageResource(R.drawable.good);
+		result.setText("Good workout");
 	}
 	else {
 		cal_burnt = (float) (bmrValue * 1.9);
 		burnt.setText(cal_burnt.toString());
-		result.setImageResource(R.drawable.excell);
+		result.setText("Excellent Workout");
 	}
 	
 		

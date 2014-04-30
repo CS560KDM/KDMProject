@@ -58,7 +58,7 @@ String userName ="tempUser";
 			@Override
 			public void onClick(View view) {
 				//Intent reportPage = new Intent("com.quchen.flappycow.MainActivity");
-				startService(new Intent(GameSelectionActivity.this,ConnectionService.class));
+				//startService(new Intent(GameSelectionActivity.this,ConnectionService.class));
 				String url ="http://10.0.2.2:8080/RESTfulWS/rest/upload/user?username="+userName;
 				new SaveUserName().execute(url);
 				//Log.i("hello", "here");
